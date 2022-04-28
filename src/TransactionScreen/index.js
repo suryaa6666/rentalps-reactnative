@@ -50,7 +50,7 @@ export default function TransactionScreen({ navigation }) {
                         <Text style={styles.headertext}> Riwayat Transaksi </Text>
                     </View>
                     {
-                        transactions?.data.map((item, index, element) => {
+                        transactions?.data.slice(0).reverse().map((item, index) => {
                             let dated = new Date(item["waktu"]);
                             let day = dated.getDay();
                             if (day == 1) {
