@@ -21,7 +21,7 @@ export default function TransactionScreen({ navigation }) {
     const [transactionTime, setTransactionTime] = useState(0);
 
     const getTransactions = async () => {
-        const trans = await axios.get(`https://rentalps-basisdata2projekan.herokuapp.com/gettransactions`);
+        const trans = await axios.get(`https://rentalps-basisdata2projekan.herokuapp.com/gettransactions/0IQuCDT6u2N6oqQDMEom2f4ryEVtgaXl`);
         console.log(trans);
         setTransactions(trans);
     }
@@ -49,12 +49,16 @@ export default function TransactionScreen({ navigation }) {
                     <View style={styles.blackheader}>
                         <Text style={styles.headertext}> Riwayat Transaksi </Text>
                     </View>
+                    <View style={styles.headerdate}>
+                        <Text style={styles.headerdatetext}>Nama</Text>
+                        <Text style={styles.headerdatetext}>Total Bayar</Text>
+                    </View>
                     {
                         transactions?.data.slice(0).reverse().map((item, index) => {
                             let dated = new Date(item["waktu"]);
                             let day = dated.getDay();
                             if (day == 1) {
-                                day = 'Senin'
+                                day = 'Senin';
                             } else if (day == 2) {
                                 day = 'Selasa';
                             } else if (day == 3) {
@@ -97,14 +101,9 @@ export default function TransactionScreen({ navigation }) {
                             }
                             let year = dated.getFullYear();
                             let fullDate = `${day}, ${date} ${month} ${year}`;
-                            // let check = new Date(transactions.data[index]["waktu"]).getDate() == (transactions.data[index + 1] != undefined ? new Date(transactions.data[index + 1]["waktu"]).getDate() : '');
-                            // element = index + 1;
                             return (
                                 <View style={{ width: '100%' }} key={index}>
-                                    <View style={styles.headerdate}>
-                                        <Text style={styles.headerdatetext}> {fullDate} </Text>
-                                    </View>
-                                    <TouchableOpacity style={styles.namepricecontainer} onPress={() => {
+                                    <TouchableOpacity onPress={() => {
                                         setName(item["nama"]);
                                         setAge(item["usia"]);
                                         setHandphoneNumber(item["no_hp"]);
@@ -114,18 +113,18 @@ export default function TransactionScreen({ navigation }) {
                                         setTransactionTime(item["waktu"]);
                                         setShowDetail(true);
                                     }}>
-                                        <Text style={styles.namepricetext}>{item["nama"]}</Text>
-                                        <Text style={styles.namepricetext}>{formatRupiah(item["harga"])}</Text>
+                                        <View>
+                                            <Text style={styles.datetext}>{fullDate}</Text>
+                                        </View>
+                                        <View style={styles.namepricecontainer}>
+                                            <Text style={styles.namepricetext}>{item["nama"]}</Text>
+                                            <Text style={styles.namepricetext}>{formatRupiah(item["harga"])}</Text>
+                                        </View>
                                     </TouchableOpacity>
-                                    {/* <View style={styles.totalpricecontainer}>
-                                        <Text style={styles.totalpricetext}>Total</Text>
-                                        <Text style={styles.totalpricetext}>Rp. 12.000</Text>
-                                    </View> */}
                                 </View>
                             )
                         })
                     }
-
                     <AwesomeAlert
                         show={showDetail}
                         showProgress={false}
@@ -205,15 +204,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#F0F0F0',
         borderWidth: 0.6,
         borderColor: '#8E8383',
-        justifyContent: 'center',
-        alignItems: 'center',
         width: '100%',
-        height: 58
+        height: 58,
+        flexDirection: 'row',
+        paddingTop: 8,
+        paddingRight: 25,
+        paddingBottom: 8,
+        paddingLeft: 18,
     },
     headerdatetext: {
         color: '#000',
         fontFamily: 'Outfit_500Medium',
-        fontSize: 24
+        fontSize: 26,
+        flex: 0.5,
     },
     namepricecontainer: {
         backgroundColor: '#fff',
@@ -231,7 +234,7 @@ const styles = StyleSheet.create({
         color: '#000',
         fontFamily: 'Outfit_500Medium',
         fontSize: 18,
-        flex: 0.5
+        flex: 0.5,
     },
     totalpricecontainer: {
         backgroundColor: '#67FFBF',
@@ -266,6 +269,16 @@ const styles = StyleSheet.create({
         color: '#000',
         fontFamily: 'Outfit_500Medium',
         fontSize: 18,
+        flex: 0.5
+    },
+    datetext: {
+        color: '#000',
+        fontFamily: 'Outfit_500Medium',
+        fontSize: 14,
+        paddingTop: 8,
+        paddingRight: 25,
+        paddingBottom: 8,
+        paddingLeft: 18,
         flex: 0.5
     }
 });

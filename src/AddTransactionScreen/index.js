@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator, TextInput, TouchableOpacity, LogBox } from 'react-native';
 import { useFonts, Outfit_500Medium } from '@expo-google-fonts/dev';
 import { Picker } from '@react-native-picker/picker';
@@ -26,7 +26,7 @@ export default function AddTransactionScreen({ navigation }) {
     const [errorMessage, setErrorMessage] = useState();
 
     const getPlaystation = async () => {
-        const playstation = await axios.get(`https://rentalps-basisdata2projekan.herokuapp.com/getrentals`);
+        const playstation = await axios.get(`https://rentalps-basisdata2projekan.herokuapp.com/getrentals/0IQuCDT6u2N6oqQDMEom2f4ryEVtgaXl`);
         console.log(playstation);
         setPlaystation(playstation);
         setSelectedPlaystationId(playstation.data[0]["id_ps"]);
@@ -36,7 +36,7 @@ export default function AddTransactionScreen({ navigation }) {
     const fetchPost = async () => {
         const post = await axios({
             method: 'post',
-            url: 'https://rentalps-basisdata2projekan.herokuapp.com/getrentals',
+            url: 'https://rentalps-basisdata2projekan.herokuapp.com/getrentals/0IQuCDT6u2N6oqQDMEom2f4ryEVtgaXl',
             data: {
                 nama: validator.trim(name),
                 usia: age,
