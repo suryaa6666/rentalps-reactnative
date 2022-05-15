@@ -71,7 +71,7 @@ export default function TransactionScreen({ navigation }) {
                                 day = 'Jumat';
                             } else if (day == 6) {
                                 day = 'Sabtu';
-                            } else if (day == 7) {
+                            } else if (day == 0) {
                                 day = 'Minggu';
                             }
                             let date = dated.getDate();
