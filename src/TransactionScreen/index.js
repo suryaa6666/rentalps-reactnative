@@ -21,7 +21,6 @@ export default function TransactionScreen({ navigation }) {
 
     const getTransactions = async () => {
         const trans = await axios.get(`https://rentalps-basisdata2projekan.herokuapp.com/gettransactions/0IQuCDT6u2N6oqQDMEom2f4ryEVtgaXl`);
-        console.log(trans);
         setTransactions(trans);
     }
 
@@ -307,7 +306,7 @@ const styles = StyleSheet.create({
         paddingRight: 25,
         paddingBottom: 8,
         paddingLeft: 18,
-        backgroundColor: '#E9C46A'
+        backgroundColor: '#2A9D8F'
     },
     headerlist: {
         borderWidth: 0.6,
@@ -318,7 +317,7 @@ const styles = StyleSheet.create({
         paddingRight: 25,
         paddingBottom: 8,
         paddingLeft: 18,
-        backgroundColor: '#F4A261'
+        backgroundColor: '#264653'
     },
     headerlisttext: {
         color: '#fff',

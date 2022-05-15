@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import 'react-native-gesture-handler';
 import AddTransactionScreen from './AddTransactionScreen';
 import TransactionScreen from './TransactionScreen';
+import AboutUsScreen from './AboutUsScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
@@ -21,7 +22,9 @@ export default function index() {
                             ? 'add-circle'
                             : 'add-circle-outline';
                     } else if (route.name === 'Riwayat') {
-                        iconName = focused ? 'wallet' : 'wallet';
+                        iconName = focused ? 'wallet' : 'wallet-outline';
+                    } else if (route.name === 'Tentang') {
+                        iconName = focused ? 'alert-circle' : 'alert-circle-outline';
                     }
 
                     // You can return any component that you like here!
@@ -32,6 +35,7 @@ export default function index() {
             })}>
                 <Tab.Screen name='Tambah' component={AddTransactionScreen} options={{ headerShown: false }} />
                 <Tab.Screen name='Riwayat' component={TransactionScreen} options={{ headerShown: false, unmountOnBlur: true }} />
+                <Tab.Screen name='Tentang' component={AboutUsScreen} options={{ headerShown: false }} />
             </Tab.Navigator>
         </NavigationContainer>
     )

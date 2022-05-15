@@ -27,7 +27,6 @@ export default function AddTransactionScreen({ navigation }) {
 
     const getPlaystation = async () => {
         const playstation = await axios.get(`https://rentalps-basisdata2projekan.herokuapp.com/getrentals/0IQuCDT6u2N6oqQDMEom2f4ryEVtgaXl`);
-        console.log(playstation);
         setPlaystation(playstation);
         setSelectedPlaystationId(playstation.data[0]["id_ps"]);
         setSelectedPlaystationPrice(playstation.data[0]["rate_perjam"]);
@@ -62,7 +61,6 @@ export default function AddTransactionScreen({ navigation }) {
             fetchPost();
             clearInput();
         } catch (err) {
-            console.log(err);
             return <Text> Error with message : {err} </Text>
         }
     }
