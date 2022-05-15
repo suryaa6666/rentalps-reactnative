@@ -39,6 +39,9 @@ export default function TransactionScreen({ navigation }) {
         Outfit_500Medium
     });
 
+    let count = 0;
+    let check = null;
+
     if (!fontsLoaded) {
         return <ActivityIndicator style={styles.activityindicator} size='large' color='#2646530ff' />;
     } else {
@@ -100,28 +103,57 @@ export default function TransactionScreen({ navigation }) {
                             }
                             let year = dated.getFullYear();
                             let fullDate = `${day}, ${date} ${month} ${year}`;
-                            return (
-                                <View style={{ width: '100%' }} key={index}>
-                                    <View style={styles.headerdate}>
-                                        <Text style={styles.datetext}>{fullDate}</Text>
-                                    </View>
-                                    <TouchableOpacity onPress={() => {
-                                        setName(item["nama"]);
-                                        setAge(item["usia"]);
-                                        setHandphoneNumber(item["no_hp"]);
-                                        setHours(item["jam"]);
-                                        setTotalPrice(item["harga"]);
-                                        setPlaystation(item["jenis_ps"]);
-                                        setTransactionTime(item["waktu"]);
-                                        setShowDetail(true);
-                                    }}>
-                                        <View style={styles.namepricecontainer}>
-                                            <Text style={styles.namepricetext}>{item["nama"]}</Text>
-                                            <Text style={styles.namepricetext}>{formatRupiah(item["harga"])}</Text>
+
+                            if (check != date) {
+                                count = 0;
+                                check = date;
+                            }
+
+                            if (count == 0) {
+                                count = 1;
+                                return (
+                                    <View style={{ width: '100%' }} key={index}>
+                                        <View style={styles.headerdate}>
+                                            <Text style={styles.datetext}>{fullDate}</Text>
                                         </View>
-                                    </TouchableOpacity>
-                                </View>
-                            )
+                                        <TouchableOpacity onPress={() => {
+                                            setName(item["nama"]);
+                                            setAge(item["usia"]);
+                                            setHandphoneNumber(item["no_hp"]);
+                                            setHours(item["jam"]);
+                                            setTotalPrice(item["harga"]);
+                                            setPlaystation(item["jenis_ps"]);
+                                            setTransactionTime(item["waktu"]);
+                                            setShowDetail(true);
+                                        }}>
+                                            <View style={styles.namepricecontainer}>
+                                                <Text style={styles.namepricetext}>{item["nama"]}</Text>
+                                                <Text style={styles.namepricetext}>{formatRupiah(item["harga"])}</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                )
+                            } else {
+                                return (
+                                    <View style={{ width: '100%' }} key={index}>
+                                        <TouchableOpacity onPress={() => {
+                                            setName(item["nama"]);
+                                            setAge(item["usia"]);
+                                            setHandphoneNumber(item["no_hp"]);
+                                            setHours(item["jam"]);
+                                            setTotalPrice(item["harga"]);
+                                            setPlaystation(item["jenis_ps"]);
+                                            setTransactionTime(item["waktu"]);
+                                            setShowDetail(true);
+                                        }}>
+                                            <View style={styles.namepricecontainer}>
+                                                <Text style={styles.namepricetext}>{item["nama"]}</Text>
+                                                <Text style={styles.namepricetext}>{formatRupiah(item["harga"])}</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                )
+                            }
                         })
                     }
                     <AwesomeAlert
@@ -223,24 +255,24 @@ const styles = StyleSheet.create({
         fontSize: 18,
         flex: 0.5,
     },
-    totalpricecontainer: {
-        backgroundColor: '#67FFBF',
-        height: 39,
-        borderWidth: 0.6,
-        borderColor: '#8E8383',
-        flexDirection: 'row',
-        paddingTop: 8,
-        paddingRight: 25,
-        paddingBottom: 8,
-        paddingLeft: 18,
-        width: '100%'
-    },
-    totalpricetext: {
-        color: '#264653',
-        fontFamily: 'Outfit_500Medium',
-        fontSize: 18,
-        flex: 0.5
-    },
+    // totalpricecontainer: {
+    //     backgroundColor: '#67FFBF',
+    //     height: 39,
+    //     borderWidth: 0.6,
+    //     borderColor: '#8E8383',
+    //     flexDirection: 'row',
+    //     paddingTop: 8,
+    //     paddingRight: 25,
+    //     paddingBottom: 8,
+    //     paddingLeft: 18,
+    //     width: '100%'
+    // },
+    // totalpricetext: {
+    //     color: '#264653',
+    //     fontFamily: 'Outfit_500Medium',
+    //     fontSize: 18,
+    //     flex: 0.5
+    // },
     detailcontainer: {
         width: '100%',
         flexDirection: 'row',
