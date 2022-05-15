@@ -150,7 +150,7 @@ export default function AddTransactionScreen({ navigation }) {
     });
 
     if (!fontsLoaded) {
-        return <ActivityIndicator style={styles.activityindicator} size='large' color='#0000ff' />;
+        return <ActivityIndicator style={styles.activityindicator} size='large' color='#2646530ff' />;
     } else {
         return (
             <View style={styles.container}>
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
         paddingBottom: 20
     },
     blackheader: {
-        backgroundColor: '#000',
+        backgroundColor: '#264653',
         height: 145,
         width: '100%',
         alignItems: 'center',
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
         height: 49,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#000',
+        backgroundColor: '#264653',
         borderRadius: 5,
         borderWidth: 0.6,
         borderColor: '#8E8383',

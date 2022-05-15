@@ -27,8 +27,8 @@ export default function index() {
                     // You can return any component that you like here!
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
-                tabBarActiveTintColor: 'black',
-                tabBarInactiveTintColor: 'gray',
+                tabBarActiveTintColor: '#2A9D8F',
+                tabBarInactiveTintColor: '#264653',
             })}>
                 <Tab.Screen name='Tambah' component={AddTransactionScreen} options={{ headerShown: false }} />
                 <Tab.Screen name='Riwayat' component={TransactionScreen} options={{ headerShown: false, unmountOnBlur: true }} />

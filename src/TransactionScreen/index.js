@@ -6,7 +6,6 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import "intl";
 import "intl/locale-data/jsonp/en";
 
-
 LogBox.ignoreAllLogs();
 export default function TransactionScreen({ navigation }) {
 
@@ -41,7 +40,7 @@ export default function TransactionScreen({ navigation }) {
     });
 
     if (!fontsLoaded) {
-        return <ActivityIndicator style={styles.activityindicator} size='large' color='#0000ff' />;
+        return <ActivityIndicator style={styles.activityindicator} size='large' color='#2646530ff' />;
     } else {
         return (
             <ScrollView>
@@ -49,9 +48,9 @@ export default function TransactionScreen({ navigation }) {
                     <View style={styles.blackheader}>
                         <Text style={styles.headertext}> Riwayat Transaksi </Text>
                     </View>
-                    <View style={styles.headerdate}>
-                        <Text style={styles.headerdatetext}>Nama</Text>
-                        <Text style={styles.headerdatetext}>Total Bayar</Text>
+                    <View style={styles.headerlist}>
+                        <Text style={styles.headerlisttext}>Nama</Text>
+                        <Text style={styles.headerlisttext}>Total Bayar</Text>
                     </View>
                     {
                         transactions?.data.slice(0).reverse().map((item, index) => {
@@ -103,6 +102,9 @@ export default function TransactionScreen({ navigation }) {
                             let fullDate = `${day}, ${date} ${month} ${year}`;
                             return (
                                 <View style={{ width: '100%' }} key={index}>
+                                    <View style={styles.headerdate}>
+                                        <Text style={styles.datetext}>{fullDate}</Text>
+                                    </View>
                                     <TouchableOpacity onPress={() => {
                                         setName(item["nama"]);
                                         setAge(item["usia"]);
@@ -113,9 +115,6 @@ export default function TransactionScreen({ navigation }) {
                                         setTransactionTime(item["waktu"]);
                                         setShowDetail(true);
                                     }}>
-                                        <View>
-                                            <Text style={styles.datetext}>{fullDate}</Text>
-                                        </View>
                                         <View style={styles.namepricecontainer}>
                                             <Text style={styles.namepricetext}>{item["nama"]}</Text>
                                             <Text style={styles.namepricetext}>{formatRupiah(item["harga"])}</Text>
@@ -186,7 +185,7 @@ const styles = StyleSheet.create({
         paddingBottom: 30
     },
     blackheader: {
-        backgroundColor: '#000',
+        backgroundColor: '#264653',
         height: 145,
         width: '100%',
         alignItems: 'center',
@@ -200,20 +199,8 @@ const styles = StyleSheet.create({
     activityindicator: {
         padding: 30
     },
-    headerdate: {
-        backgroundColor: '#F0F0F0',
-        borderWidth: 0.6,
-        borderColor: '#8E8383',
-        width: '100%',
-        height: 58,
-        flexDirection: 'row',
-        paddingTop: 8,
-        paddingRight: 25,
-        paddingBottom: 8,
-        paddingLeft: 18,
-    },
     headerdatetext: {
-        color: '#000',
+        color: '#264653',
         fontFamily: 'Outfit_500Medium',
         fontSize: 26,
         flex: 0.5,
@@ -231,7 +218,7 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     namepricetext: {
-        color: '#000',
+        color: '#264653',
         fontFamily: 'Outfit_500Medium',
         fontSize: 18,
         flex: 0.5,
@@ -249,7 +236,7 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     totalpricetext: {
-        color: '#000',
+        color: '#264653',
         fontFamily: 'Outfit_500Medium',
         fontSize: 18,
         flex: 0.5
@@ -266,19 +253,47 @@ const styles = StyleSheet.create({
         paddingLeft: 18,
     },
     detailtext: {
-        color: '#000',
+        color: '#264653',
         fontFamily: 'Outfit_500Medium',
         fontSize: 18,
         flex: 0.5
     },
     datetext: {
-        color: '#000',
+        color: '#fff',
         fontFamily: 'Outfit_500Medium',
-        fontSize: 14,
+        fontSize: 20,
+        flex: 1,
+        alignSelf: 'center',
+        justifyContent: 'center',
+    },
+    headerdate: {
+        borderWidth: 0.6,
+        borderColor: '#8E8383',
+        width: '100%',
+        flexDirection: 'row',
         paddingTop: 8,
         paddingRight: 25,
         paddingBottom: 8,
         paddingLeft: 18,
-        flex: 0.5
+        backgroundColor: '#E9C46A'
+    },
+    headerlist: {
+        borderWidth: 0.6,
+        borderColor: '#8E8383',
+        width: '100%',
+        flexDirection: 'row',
+        paddingTop: 8,
+        paddingRight: 25,
+        paddingBottom: 8,
+        paddingLeft: 18,
+        backgroundColor: '#F4A261'
+    },
+    headerlisttext: {
+        color: '#fff',
+        fontFamily: 'Outfit_500Medium',
+        fontSize: 20,
+        flex: 1,
+        alignSelf: 'center',
+        justifyContent: 'center',
     }
 });
