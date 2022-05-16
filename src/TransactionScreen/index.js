@@ -11,6 +11,7 @@ export default function TransactionScreen({ navigation }) {
 
     const [transactions, setTransactions] = useState();
     const [showDetail, setShowDetail] = useState(false);
+    const [showConnectionError, setShowConnectionError] = useState(false);
     const [playstation, setPlaystation] = useState();
     const [totalPrice, setTotalPrice] = useState(0);
     const [hours, setHours] = useState(0);
@@ -20,8 +21,12 @@ export default function TransactionScreen({ navigation }) {
     const [transactionTime, setTransactionTime] = useState(0);
 
     const getTransactions = async () => {
-        const trans = await axios.get(`https://rentalps-basisdata2projekan.herokuapp.com/gettransactions/0IQuCDT6u2N6oqQDMEom2f4ryEVtgaXl`);
-        setTransactions(trans);
+        try {
+            const trans = await axios.get(`https://rentalps-basisdata2projekan.herokuapp.com/gettransactions/0IQuCDT6u2N6oqQDMEom2f4ryEVtgaXl`);
+            setTransactions(trans);
+        } catch (err) {
+            setShowConnectionError(true);
+        }
     }
 
     const formatRupiah = (money) => {
@@ -155,6 +160,13 @@ export default function TransactionScreen({ navigation }) {
                             }
                         })
                     }
+                    <AwesomeAlert
+                        show={showConnectionError}
+                        closeOnHardwareBackPress={false}
+                        closeOnTouchOutside={false}
+                        title="Pemberitahuan"
+                        message="Koneksi internet terputus! Silahkan nyalakan koneksi internet dan masuk ulang ke aplikasi!"
+                    />
                     <AwesomeAlert
                         show={showDetail}
                         showProgress={false}

@@ -8,7 +8,6 @@ import "intl";
 import "intl/locale-data/jsonp/en";
 import validator from 'validator';
 
-
 LogBox.ignoreAllLogs();
 export default function AddTransactionScreen({ navigation }) {
 
@@ -22,30 +21,43 @@ export default function AddTransactionScreen({ navigation }) {
     const [handphoneNumber, setHandphoneNumber] = useState('');
     const [showAlert, setShowAlert] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState('');
     const [showError, setShowError] = useState(false);
+    const [showConnectionError, setShowConnectionError] = useState(false);
     const [errorMessage, setErrorMessage] = useState();
 
     const getPlaystation = async () => {
-        const playstation = await axios.get(`https://rentalps-basisdata2projekan.herokuapp.com/getrentals/0IQuCDT6u2N6oqQDMEom2f4ryEVtgaXl`);
-        setPlaystation(playstation);
-        setSelectedPlaystationId(playstation.data[0]["id_ps"]);
-        setSelectedPlaystationPrice(playstation.data[0]["rate_perjam"]);
+        try {
+            const playstation = await axios.get(`https://rentalps-basisdata2projekan.herokuapp.com/getrentals/0IQuCDT6u2N6oqQDMEom2f4ryEVtgaXl`);
+            setPlaystation(playstation);
+            setSelectedPlaystationId(playstation.data[0]["id_ps"]);
+            setSelectedPlaystationPrice(playstation.data[0]["rate_perjam"]);
+        } catch (err) {
+            setShowConnectionError(true);
+        }
     }
 
     const fetchPost = async () => {
-        const post = await axios({
-            method: 'post',
-            url: 'https://rentalps-basisdata2projekan.herokuapp.com/getrentals/0IQuCDT6u2N6oqQDMEom2f4ryEVtgaXl',
-            data: {
-                nama: validator.trim(name),
-                usia: age,
-                no_hp: handphoneNumber,
-                jam: hours,
-                harga: totalPrice,
-                id_ps: selectedPlaystationId,
-                waktu: Date.now()
-            }
-        })
+        try {
+            setShowSuccess(true);
+            setShowSuccessMessage('Data berhasil ditambahkan!');
+            const post = await axios({
+                method: 'post',
+                url: 'https://rentalps-basisdata2projekan.herokuapp.com/getrentals/0IQuCDT6u2N6oqQDMEom2f4ryEVtgaXl',
+                data: {
+                    nama: validator.trim(name),
+                    usia: age,
+                    no_hp: handphoneNumber,
+                    jam: hours,
+                    harga: totalPrice,
+                    id_ps: selectedPlaystationId,
+                    waktu: Date.now()
+                }
+            });
+        } catch (err) {
+            setShowSuccessMessage('Data gagal ditambahkan!');
+            setShowConnectionError(true);
+        }
     }
 
     const clearInput = () => {
@@ -215,14 +227,20 @@ export default function AddTransactionScreen({ navigation }) {
                     }}
                     onConfirmPressed={() => {
                         setShowAlert(false);
-                        setShowSuccess(true);
                         addTransaction();
                     }} />
+                <AwesomeAlert
+                    show={showConnectionError}
+                    closeOnHardwareBackPress={false}
+                    closeOnTouchOutside={false}
+                    title="Pemberitahuan"
+                    message="Koneksi internet terputus! Silahkan nyalakan koneksi internet dan masuk ulang ke aplikasi!"
+                />
                 <AwesomeAlert
                     show={showSuccess}
                     showProgress={false}
                     title="Pemberitahuan"
-                    message="Data transaksi telah ditambahkan!"
+                    message={`${showSuccessMessage}`}
                     closeOnTouchOutside={true}
                     onDismiss={() => {
                         setShowSuccess(false);

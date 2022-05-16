@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     biotextcontainer: {
         padding: 20,
         flex: 1,
-        overflow: 'scroll',
+        overflow: 'scroll'
     },
     biotext: {
         color: '#264653',
